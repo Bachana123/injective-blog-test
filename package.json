@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "injective-blog-test",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@nuxt/ui": "2.21.1",
+    "@nuxtjs/mdc": "^0.15.0",
     "autoprefixer": "^10.4.20",
+    "contentful": "^11.5.6",
     "nuxt": "^3.16.0",
     "postcss": "^8.5.0",
+    "tailwind-merge": "^3.0.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
