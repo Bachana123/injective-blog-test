@@ -1,75 +1,93 @@
-# Nuxt Minimal Starter
+Project Name
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Description
 
-## Setup
+This project is a web application built using Nuxt 3 and Contentful as a headless CMS. It provides a seamless experience for managing and displaying dynamic content, such as blog posts and other structured data. The app leverages Vue.js and Tailwind CSS for a modern and responsive UI.
 
-Make sure to install dependencies:
+Why Contentful?
 
-```bash
-# npm
-npm install
+Contentful was chosen as the headless CMS for this project because of its:
 
-# pnpm
-pnpm install
+Flexible Content Modeling: Contentful allows us to define custom content types that fit our needs.
 
-# yarn
-yarn install
+Powerful API: Fetching content dynamically via GraphQL or REST API is straightforward.
 
-# bun
-bun install
-```
+Scalability: Ideal for projects that require structured content distribution across multiple platforms.
 
-## Development Server
+User-Friendly Interface: The dashboard makes it easy for non-technical users to create and manage content.
 
-Start the development server on `http://localhost:3000`:
+Tech Stack and Challenges
 
-```bash
-# npm
-npm run dev
+Tech Stack:
 
-# pnpm
-pnpm dev
+Frontend: Nuxt 3 (Vue 3 + TypeScript)
 
-# yarn
-yarn dev
+Styling: Tailwind CSS
 
-# bun
-bun run dev
-```
+CMS: Contentful
 
-## Production
+Deployment: Vercel/Netlify (or any preferred hosting solution)
 
-Build the application for production:
+Challenges Faced:
 
-```bash
-# npm
-npm run build
+TypeScript Integration with Contentful: Handling TypeScript types for dynamic CMS content required careful structuring.
 
-# pnpm
-pnpm build
+Reactivity Issues in Nuxt 3: Content fetching needed proper reactivity handling to ensure UI updates correctly.
 
-# yarn
-yarn build
+Pagination & Filtering: Implementing a dynamic pagination system with Contentful required understanding its API limits.
 
-# bun
-bun run build
-```
+SEO Optimization: Since it’s a headless CMS, we had to ensure proper meta tags and structured data for SEO.
 
-Locally preview production build:
+Demo Video
 
-```bash
-# npm
-npm run preview
+A walkthrough of the application and CMS interaction is provided in the video below:
 
-# pnpm
-pnpm preview
 
-# yarn
-yarn preview
 
-# bun
-bun run preview
-```
+The video covers:
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+How to create and manage content in Contentful.
+
+Application walkthrough (home page, blog post page, filtering, pagination, etc.).
+
+Getting Started
+
+Prerequisites
+
+Ensure you have the following installed:
+
+Node.js (>=16.x)
+
+Yarn or npm
+
+Installation
+
+# Clone the repository
+git clone https://github.com/your-repo.git
+cd your-repo
+
+# Install dependencies
+yarn install  # or npm install
+
+# Create an .env file and add your Contentful credentials
+CONTENTFUL_SPACE_ID=your_space_id
+CONTENTFUL_ACCESS_TOKEN=your_access_token
+
+# Start the development server
+yarn dev  # or npm run dev
+
+Deployment
+
+To deploy the application, use a platform like Vercel or Netlify:
+
+yarn build  # or npm run build
+yarn generate  # Generate static files (if using SSG)
+
+Contributing
+
+Feel free to open issues and pull requests for improvements.
+
+License
+
+This project is licensed under the MIT License.
+
