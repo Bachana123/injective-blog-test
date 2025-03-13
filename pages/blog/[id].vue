@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { ContentfulClientApi, Entry, EntrySkeletonType } from 'contentful';
+import type { ContentfulClientApi, EntryFieldType, EntrySkeletonType } from 'contentful';
 import type { Blog } from '~/types/blog';
+import type { Image } from '~/types/shared';
 
 definePageMeta({
   layout: 'custom'
@@ -10,17 +11,20 @@ const route = useRoute()
 
 const { $client } = useNuxtApp()
 const client = $client as ContentfulClientApi<undefined>;
-const entry = ref<EntrySkeletonType<Blog> & { sys: { createdAt: string } } | null>(null);
 
-try {
-    entry.value = await client.getEntries<Blog>({
-        content_type: 'blogPost',
-        'fields.slug': route.params.id,
-        include: 2
-    }).then((res) => ({...res.items[0] as unknown as EntrySkeletonType<Blog> & { sys: { createdAt: string } }}));
-} catch (error) {
-    console.error(error)
-}
+const { data: entry } = await useAsyncData(() => client.getEntries<Blog>({
+    content_type: 'blogPost',
+    'fields.slug': route.params.id as string,
+    include: 2,
+}).then((res) => {
+    const firstItem = res.items[0];
+
+        if (firstItem && 'fields' in firstItem) {
+            return firstItem as unknown as Blog & { sys: {createdAt: ''} };
+        }
+
+        return null;
+}));
 
 const date = computed(() => {
     const date = new Date(entry.value?.sys?.createdAt ?? '');
@@ -30,6 +34,11 @@ const date = computed(() => {
         day: 'numeric',
     });
 });
+
+const author = computed(() => {
+  const authorEntry = entry.value?.fields.author;
+  return authorEntry && 'fields' in authorEntry ? authorEntry : null;
+});
 </script>
 
 <template>
@@ -37,23 +46,25 @@ const date = computed(() => {
         <div v-if="entry?.fields" class="container grid grid-cols-12 mx-auto">
             <div class="md:col-start-4 col-start-1 md:col-end-10 col-end-13">
                 <div class="flex gap-2">
-                    <UBadge v-for="category in entry?.fields.categories" :key="category?.fields.slug" :label="category?.fields.name" variant="outline" color="gray" class="group-hover:bg-[#ebf0ff] ring-[#d4e0ff] !text-black"  />
+                    <UBadge v-for="category in entry?.fields.categories" :key="category?.fields.slug" :label="category?.fields?.name" variant="outline" color="gray" class="group-hover:bg-[#ebf0ff] ring-[#d4e0ff] !text-black"  />
                 </div>
                 <h1 class="text-black md:text-5xl text-xl font-semibold mt-4 md:leading-[60px]">
                     {{ entry?.fields.title }}
                 </h1>
                 <div class="flex items-center gap-4 md:mt-8 mt-4">
                     <img 
-                    :src="entry.fields.author?.fields?.profileImg.fields.file.url" 
-                    :alt="entry.fields.author?.fields?.name" 
-                    class="w-12 h-12 rounded-full" />
+                        v-if="author"
+                        :src="(author.fields.profileImg as Image)?.fields.file.url" 
+                        :alt="author.fields.name" 
+                        class="w-12 h-12 rounded-full" 
+                        />
                     <div>
-                        <h3 class="text-black text-base">{{ entry.fields.author?.fields.name }}</h3>
+                        <h3 class="text-black text-base">{{ author?.fields.name }}</h3>
                         <span class="text-gray-700 text-xs">{{ date }}</span>
                     </div>
                 </div>
             </div>
-            <img class="md:col-start-3 col-start-1 md:col-end-11 col-end-13 rounded-2xl overflow-hidden md:mt-16 mt-4 w-full" :src="entry.fields.image?.fields.file.url" :alt="entry?.fields.title">
+            <img class="md:col-start-3 col-start-1 md:col-end-11 col-end-13 rounded-2xl overflow-hidden md:mt-16 mt-4 w-full" :src="(entry.fields.image as Image)?.fields.file.url" :alt="entry?.fields.title">
             <MDC :value="entry?.fields.description" tag="article" class="text-gray-700 md:col-start-4 col-start-1 md:col-end-10 col-end-13 mt-10 markdown-text" /> 
         </div>
         <div v-else class="h-screen absolute top-0 left-0 w-full bg-white z-50">

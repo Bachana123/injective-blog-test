@@ -7,5 +7,6 @@ export default defineNuxtConfig({
       space: process.env.NUXT_CTF_SPACE_ID,
       accessToken: process.env.NUXT_CTF_ACCESS_TOKEN,
     }
-  }
+  },
+  ssr: true,
 })

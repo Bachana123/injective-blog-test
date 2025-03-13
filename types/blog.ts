@@ -1,13 +1,14 @@
-import type { EntrySkeletonType } from "contentful";
+import type { Asset, AssetLink, ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, ResolvedAssetLink, ResolvedLink, UnresolvedLink } from "contentful";
 import type { Category } from "./category";
 import type { Image } from "./shared";
 
-export interface Author extends EntrySkeletonType {
+export type Author = EntrySkeletonType<{
     name: string;
     profileImg: Image;
-}
+}, 'author'>
 
-export interface Blog extends EntrySkeletonType {
+export type Blog = EntrySkeletonType<
+{
     title: string;
     slug: string;
     description: string;
@@ -15,4 +16,6 @@ export interface Blog extends EntrySkeletonType {
     image: Image;
     categories: Category[];
     author: Author;
-}
+},
+'blogPost'
+>

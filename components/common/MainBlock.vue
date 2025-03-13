@@ -3,7 +3,7 @@ import type { EntrySkeletonType } from 'contentful';
 import type { Blog } from '~/types/blog';
 
 interface Props {
-    blogItem: EntrySkeletonType<Blog>[];
+    blogItem: Blog[];
 }
 
 defineProps<Props>()

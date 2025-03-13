@@ -16,7 +16,7 @@
   </template>
   
 <script setup lang="ts">
-import type { ContentfulClientApi, Entry, EntryCollection, EntrySkeletonType } from 'contentful';
+import type { ContentfulClientApi, EntrySkeletonType } from 'contentful';
 import type { Blog } from '~/types/blog';
 
 const { $client } = useNuxtApp()
@@ -32,15 +32,13 @@ const todayDate = computed(() => {
     });
 });
 
-const blogData = ref<EntrySkeletonType<Blog>[]>([]);
 
-client.getEntries<Blog>({
+const {data: blogData} = await useAsyncData(() => client.getEntries<Blog>({
     content_type: 'blogPost',
     order: ['sys.createdAt'],
     limit: 4
 })
 .then((posts) => {
-    blogData.value = {...posts.items as unknown as EntrySkeletonType<Blog>[]}
-})
-.catch(console.error);
+    return {...posts.items as unknown as Blog[]}
+}))
 </script>

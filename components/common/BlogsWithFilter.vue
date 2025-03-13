@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { EntrySkeletonType } from 'contentful';
 import { twMerge } from 'tailwind-merge';
 import type { Blog } from '~/types/blog';
 import type { Category } from '~/types/category';
 
 
 
-const {entries, fetchEntries, noMoreToLoad, isLoading, skip} = useFetchPagination<Blog>({
+const {entries, fetchEntries, noMoreToLoad, isLoading, skip, filters} = useFetchPagination<Blog>({
     content_type: "blogPost",
     order: ["-sys.createdAt"],
     limit: 6
@@ -28,12 +27,11 @@ const allCategories = computed(() => {
 })
 
 const selectedCategory = ref(0)
-const payload = ref({})
 
 const onFilterChange = (index: number) => {
     if (index === selectedCategory.value) return
 
-    payload.value = {}
+    filters.value = {}
     noMoreToLoad.value = false
     entries.value = []
     skip.value = 0
@@ -44,9 +42,10 @@ const onFilterChange = (index: number) => {
         fetchEntries()
         return
     }
+
     const key = allCategories.value[index].key
-    payload.value = {'fields.categories.sys.id': key}
-    fetchEntries(payload.value)
+    filters.value = {'fields.categories.sys.id': key}
+    fetchEntries()
 }
 </script>
 
@@ -68,11 +67,11 @@ const onFilterChange = (index: number) => {
                 </div>
             </div>
             <div v-else class="col-span-12 grid grid-cols-12 gap-5">
-                <div class="lg:col-span-4 col-span-12" v-for="item in entries" :key="item.fields.slug as string">
-                    <CommonCard  :item="item as unknown as EntrySkeletonType<Blog>" variant="small"  />
+                <div class="lg:col-span-4 col-span-12" v-for="item in entries" :key="item.fields.slug">
+                    <CommonCard  :item="item as unknown as Blog" variant="small"  />
                 </div>
             </div>
-            <UButton v-if="!noMoreToLoad" color="black" variant="solid" :loading="isLoading" class="mt-6 col-start-6 col-end-8 mx-auto rounded-full p-4 ring-1 ring-slate-500 hover:-translate-y-3 duration-300" @click="fetchEntries(payload)">
+            <UButton v-if="!noMoreToLoad" color="black" variant="solid" :loading="isLoading" class="mt-6 col-start-6 col-end-8 mx-auto rounded-full p-4 ring-1 ring-slate-500 hover:-translate-y-3 duration-300" @click="fetchEntries">
                 Load More
             </UButton>
         </div>
