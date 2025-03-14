@@ -38,9 +38,9 @@ onUnmounted(() => {
     <header class="" 
     :class="twMerge('fixed w-full z-[1000] px-7 md:px-9 nav-container transition-transform duration-300', 
     isHidden && '-translate-y-full', 
-    scrollY > 500 &&  'bg-white text-black shadow-md',
-    scrollY <= 500 && 'bg-transparent',
-    variant === 'white-bg' && 'bg-white text-black')">
+    scrollY > 500 &&  'bg-white !text-black shadow-md',
+    scrollY <= 500 && 'bg-transparent text-white',
+    variant === 'white-bg' && 'bg-white !text-black')">
       <div class="container mx-auto py-4 flex justify-between items-center">
           <NuxtLink to="/">
               <Logo />

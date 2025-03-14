@@ -29,13 +29,13 @@ const shareItems = [
 
 <template>
     <section class="grid grid-cols-12 flex-col bg-[url('/imgs/bg-lets-go@1x.jpg')] bg-cover bg-center bg-no-repeat md:py-16 md:px-12 p-6 rounded-3xl">
-        <div class="col-span-12 flex flex-row items-center gap-4">
+        <div class="col-span-12 flex flex-row items-center gap-4 text-white">
             <svg class="!w-1 !h-1 md:!w-2 md:!h-2 rounded-full bg-white" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="5" cy="5.00049" r="5" fill="currentcolor"></circle>
             </svg>
             <div class="text-inherit">{{ $t('shareCard.smallTitle') }}</div>
         </div>
-        <div class="md:col-start-2 col-start-1 md:col-end-9 col-end-12 flex flex-col md:gap-4 md:pt-40 pt-4">
+        <div class="md:col-start-2 col-start-1 md:col-end-9 col-end-12 flex flex-col md:gap-4 md:pt-40 pt-4 text-white">
             <h4 class="md:text-[88px] md:leading-[88px] text-3xl">
                 {{ $t("shareCard.title1") }} <span class="md:block">{{ $t('shareCard.title2') }}</span> 
             </h4>

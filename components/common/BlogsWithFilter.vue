@@ -91,7 +91,7 @@ const onFilterChange = (index: number) => {
                     <CommonCard  :item="item" variant="small"  />
                 </div>
             </div>
-            <UButton v-if="!noMoreToLoad" color="black" variant="solid" :loading="isLoading" class="mt-16 col-start-6 col-end-8 mx-auto rounded-full py-3 px-6 ring-1 ring-[#d4e0ff] text-lg leading-[18px] hover:-translate-y-3 duration-300 font-normal" @click="fetchEntries">
+            <UButton v-if="!noMoreToLoad" color="black" variant="solid" :loading="isLoading" class="mt-16 col-start-6 col-end-8 mx-auto rounded-full py-3 px-6 ring-1 ring-[#d4e0ff] text-lg leading-[18px] hover:-translate-y-3 duration-300 font-normal bg-white text-black hover:bg-gray-100" @click="fetchEntries">
                 {{ $t('common.button.loadMore') }}
             </UButton>
         </div>

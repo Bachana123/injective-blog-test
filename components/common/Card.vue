@@ -18,8 +18,8 @@ withDefaults(defineProps<Props>(), {
 
 <template>
     <NuxtLink :to="localPath('/blog/' + item?.fields.slug)" class="block">
-        <UCard v-if="item" class="overflow-hidden group rounded-2xl" :ui="{ divide: '', ring: '', body: { padding: '!p-0' }, background: variant !== 'only-title' ? 'dark:bg-white' : 'dark:bg-[#ebf0ff] hover:dark:bg-[#ffa36e]', footer: { background: variant === 'only-title' ? 'bg-[#ebf0ff] relative group-hover:bg-[#ffa36e]' : 'bg-white relative', padding: 'sm:px-6 pt-0' } }">
-            <div :class="twMerge('duration-300 h-[630px] easy-in-out', variant === 'only-title' ? 'h-[156px]' : 'group-hover:translate-y-[-70px]', variant === 'small' && 'h-[420px] group-hover:translate-y-[-80px]')">
+        <UCard v-if="item" class="overflow-hidden group rounded-2xl" :ui="{ divide: '', ring: '', body: { padding: '!p-0' }, background: variant !== 'only-title' ? 'dark:bg-white' : 'dark:bg-[#ebf0ff] bg-[#ebf0ff] hover:bg-[#ffa36e] hover:dark:bg-[#ffa36e]', footer: { background: variant === 'only-title' ? 'bg-[#ebf0ff] dark:bg-[#ebf0ff] relative group-hover:bg-[#ffa36e]' : 'bg-white relative', padding: 'sm:px-6 pt-0' } }">
+            <div :class="twMerge('duration-300 h-[630px] easy-in-out', variant === 'only-title' ? 'h-[167px]' : 'group-hover:translate-y-[-70px]', variant === 'small' && 'h-[420px] group-hover:translate-y-[-80px]')">
                 <img v-if="variant && variant !== 'only-title'" :src="item?.fields.image?.fields?.file?.url" :alt="item?.fields.image?.fields?.title" :class="twMerge('w-full h-[512px] object-cover', variant === 'small' && 'h-auto')" />
                 <div class="p-6">
                     <time v-if="variant !== 'default'" datetime="2025-03-11" class="text-xs text-[#0b182b] opacity-60 font-mono font-normal">
