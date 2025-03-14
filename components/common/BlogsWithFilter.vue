@@ -56,14 +56,29 @@ const onFilterChange = (index: number) => {
     <section class="bg-white pt-16 pb-6">
         <div class="grid grid-cols-12 gap-4 container mx-auto px-7 md:px-9">
             <div class="hidden lg:block col-start-1 xl:col-end-8 col-end-13 whitespace-nowrap">
-                <UTabs v-if="allCategories.length" :items="allCategories" :default-index="0" class="" :ui="{ list: {rounded: 'rounded-full', background: '!bg-white', base: 'ring-1 ring-black', marker: { background: '!bg-[#4d3dff]', rounded: 'rounded-full' } } }" @change="onFilterChange">
+                <UTabs 
+                    v-if="allCategories.length" 
+                    :items="allCategories" 
+                    :default-index="0" 
+                    :ui="{ 
+                        list: {
+                            rounded: 'rounded-full', 
+                            background: '!bg-white', 
+                            base: 'ring-1 ring-[#d4e0ff] !p-0 h-auto', 
+                            marker: { 
+                                background: '!bg-[#4d3dff]', 
+                                rounded: 'rounded-full' 
+                            } 
+                        } 
+                    }" 
+                    @change="onFilterChange">
                     <template #default="{ item, selected }">
-                        <span :class="[twMerge('text-black', selected && 'text-white', )]">{{ item.label }}</span>
+                        <span :class="[twMerge('text-black font-normal', selected && 'text-white', )]">{{ item.label }}</span>
                     </template>
                 </UTabs>
             </div>
             <div v-if="isLoading" class="col-span-12 flex gap-5 flex-wrap">
-                <div class="" v-for="i in 6" :key="i">
+                <div v-for="i in 6" :key="i">
                     <USkeleton class="h-[290px] w-[470px]" :ui="{ rounded: 'rounded-xl' }" />
                     <div class="space-y-2 mt-4">
                         <USkeleton class="h-10 w-[250px]" />
@@ -76,7 +91,7 @@ const onFilterChange = (index: number) => {
                     <CommonCard  :item="item" variant="small"  />
                 </div>
             </div>
-            <UButton v-if="!noMoreToLoad" color="black" variant="solid" :loading="isLoading" class="mt-6 col-start-6 col-end-8 mx-auto rounded-full p-4 ring-1 ring-slate-500 hover:-translate-y-3 duration-300" @click="fetchEntries">
+            <UButton v-if="!noMoreToLoad" color="black" variant="solid" :loading="isLoading" class="mt-16 col-start-6 col-end-8 mx-auto rounded-full py-3 px-6 ring-1 ring-[#d4e0ff] text-lg leading-[18px] hover:-translate-y-3 duration-300 font-normal" @click="fetchEntries">
                 {{ $t('common.button.loadMore') }}
             </UButton>
         </div>

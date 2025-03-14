@@ -35,18 +35,18 @@ const shareItems = [
             </svg>
             <div class="text-inherit">{{ $t('shareCard.smallTitle') }}</div>
         </div>
-        <div class="md:col-start-2 col-start-1 md:col-end-9 col-end-12 flex flex-col md:gap-4 md:pt-32 pt-4">
-            <h4 class="md:text-7xl text-3xl">
+        <div class="md:col-start-2 col-start-1 md:col-end-9 col-end-12 flex flex-col md:gap-4 md:pt-40 pt-4">
+            <h4 class="md:text-[88px] md:leading-[88px] text-3xl">
                 {{ $t("shareCard.title1") }} <span class="md:block">{{ $t('shareCard.title2') }}</span> 
             </h4>
-            <p class="md:text-xl text-base">
-                {{ $t('shareCard.description1') }}
+            <p class="md:text-[28px] md:leading-8 text-base">
+                <span class="md:block">{{ $t('shareCard.description1') }}</span>
                 <span class="md:block">{{ $t('shareCard.description2') }}</span>
             </p>
         </div>
         <div class="md:col-start-2 col-start-1 col-end-12 gap-3 md:mt-32 mt-6">
             <div class="flex flex-wrap gap-4">
-                <UButton color="black" variant="solid" class="rounded-full py-2 px-6 ring-1 ring-slate-500 hover:-translate-y-3 duration-300 bg-transparent text-lg active:translate-y-0" :ui="{base: '!bg-transparent !text-white !ring-white'}" v-for="item in shareItems" :key="item.label" :icon="item.icon">
+                <UButton color="black" variant="solid" class="rounded-full py-3 px-6 ring-1 ring-slate-500 hover:-translate-y-3 hover:!bg-[#ffffff66] hover:opacity-80 duration-300 bg-transparent text-lg active:translate-y-0" :ui="{base: '!bg-[#ffffff1a] !text-white !ring-white !text-[18px] !leading-[18px]'}" v-for="item in shareItems" :key="item.label" :icon="item.icon">
                     <span class="md:block hidden">
                         {{ item.label }}
                     </span>

@@ -30,12 +30,7 @@ const { data: entry } = await useAsyncData(() => client.withoutUnresolvableLinks
 });
 
 const date = computed(() => {
-    const date = new Date(entry.value?.sys?.createdAt ?? '');
-    return date.toLocaleDateString(locale.value, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
+    return createDateWithMonth({ time: entry.value?.sys?.createdAt, locale: locale.value });
 });
 
 const author = computed(() => {
@@ -45,7 +40,7 @@ const author = computed(() => {
 </script>
 
 <template>
-    <main class="bg-white w-full h-full md:pt-[200px] pt-24 pb-6 px-4 md:px-0">
+    <main class="bg-white w-full h-full md:pt-[60px] pt-24 pb-6 px-4 md:px-0">
         <div v-if="entry?.fields" class="container grid grid-cols-12 mx-auto">
             <div class="md:col-start-4 col-start-1 md:col-end-10 col-end-13">
                 <div class="flex gap-2">
