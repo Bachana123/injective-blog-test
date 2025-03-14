@@ -29,19 +29,19 @@ const shareItems = [
 
 <template>
     <section class="grid grid-cols-12 flex-col bg-[url('/imgs/bg-lets-go@1x.jpg')] bg-cover bg-center bg-no-repeat md:py-16 md:px-12 p-6 rounded-3xl">
-        <div class="col-span-2 md:col-span-12 flex flex-row items-center gap-4">
+        <div class="col-span-12 flex flex-row items-center gap-4">
             <svg class="!w-1 !h-1 md:!w-2 md:!h-2 rounded-full bg-white" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="5" cy="5.00049" r="5" fill="currentcolor"></circle>
             </svg>
-            <div class="text-inherit">Let's Go</div>
+            <div class="text-inherit">{{ $t('shareCard.smallTitle') }}</div>
         </div>
         <div class="md:col-start-2 col-start-1 md:col-end-9 col-end-12 flex flex-col md:gap-4 md:pt-32 pt-4">
             <h4 class="md:text-7xl text-3xl">
-                The future of finance <span class="md:block">starts here.</span> 
+                {{ $t("shareCard.title1") }} <span class="md:block">{{ $t('shareCard.title2') }}</span> 
             </h4>
             <p class="md:text-xl text-base">
-                Join the journey in building true
-                <span class="md:block">financial freedom for all.</span>
+                {{ $t('shareCard.description1') }}
+                <span class="md:block">{{ $t('shareCard.description2') }}</span>
             </p>
         </div>
         <div class="md:col-start-2 col-start-1 col-end-12 gap-3 md:mt-32 mt-6">

@@ -1,34 +1,37 @@
 <script setup lang="ts">
-import type { ContentfulClientApi, EntryFieldType, EntrySkeletonType } from 'contentful';
+import type { ContentfulClientApi } from 'contentful';
 import type { Blog } from '~/types/blog';
-import type { Image } from '~/types/shared';
 
 definePageMeta({
   layout: 'custom'
 })
 
 const route = useRoute()
+const { locale } = useI18n()
 
 const { $client } = useNuxtApp()
 const client = $client as ContentfulClientApi<undefined>;
 
-const { data: entry } = await useAsyncData(() => client.getEntries<Blog>({
+const { data: entry } = await useAsyncData(() => client.withoutUnresolvableLinks.getEntries<Blog>({
     content_type: 'blogPost',
     'fields.slug': route.params.id as string,
     include: 2,
+    locale: locale.value,
 }).then((res) => {
     const firstItem = res.items[0];
 
         if (firstItem && 'fields' in firstItem) {
-            return firstItem as unknown as Blog & { sys: {createdAt: ''} };
+            return firstItem;
         }
 
         return null;
-}));
+}), {
+    watch: [locale]
+});
 
 const date = computed(() => {
     const date = new Date(entry.value?.sys?.createdAt ?? '');
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(locale.value, {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -54,7 +57,7 @@ const author = computed(() => {
                 <div class="flex items-center gap-4 md:mt-8 mt-4">
                     <img 
                         v-if="author"
-                        :src="(author.fields.profileImg as Image)?.fields.file.url" 
+                        :src="author.fields.profileImg?.fields.file?.url" 
                         :alt="author.fields.name" 
                         class="w-12 h-12 rounded-full" 
                         />
@@ -64,8 +67,14 @@ const author = computed(() => {
                     </div>
                 </div>
             </div>
-            <img class="md:col-start-3 col-start-1 md:col-end-11 col-end-13 rounded-2xl overflow-hidden md:mt-16 mt-4 w-full" :src="(entry.fields.image as Image)?.fields.file.url" :alt="entry?.fields.title">
-            <MDC :value="entry?.fields.description" tag="article" class="text-gray-700 md:col-start-4 col-start-1 md:col-end-10 col-end-13 mt-10 markdown-text" /> 
+            <img class="md:col-start-3 col-start-1 md:col-end-11 col-end-13 rounded-2xl overflow-hidden md:mt-16 mt-4 w-full" :src="entry.fields.image?.fields.file?.url" :alt="entry?.fields.title">
+            <MDC 
+            :parserOptions="{
+                    
+            }" 
+            :value="entry?.fields.description" 
+            tag="article" 
+            class="text-gray-700 md:col-start-4 col-start-1 md:col-end-10 col-end-13 mt-10 markdown-text"  /> 
         </div>
         <div v-else class="h-screen absolute top-0 left-0 w-full bg-white z-50">
             <span class="block capitalize text-4xl text-black text-center mt-40">this post doesn't exist</span>

@@ -1,8 +1,8 @@
 import type { EntryFieldTypes, EntrySkeletonType } from "contentful";
 
 export interface CategoryFields {
-    name: string;
-    slug: string;
+    name: EntryFieldTypes.Text;
+    slug: EntryFieldTypes.Text;
 }
 
 export type Category = EntrySkeletonType<

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { EntrySkeletonType } from 'contentful';
+import type { Entry, EntrySkeletonType } from 'contentful';
 import type { Blog } from '~/types/blog';
 
 interface Props {
-    blogItem: Blog[];
+    blogItem: Entry<Blog, "WITHOUT_UNRESOLVABLE_LINKS">[];
 }
 
 defineProps<Props>()

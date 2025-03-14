@@ -1,0 +1,26 @@
+{
+    "common": {
+        "button": {
+            "loadMore": "Load More"
+        }
+    },
+    "shareCard": {
+        "smallTitle": "Let's Go",
+        "title1": "The future of finance",
+        "title2": "starts here.",
+        "description1": "Join the journey in building true",
+        "description2": "financial freedom for all.",
+    },
+    "subscribe": {
+        "title": "Sign up for our newsletter",
+        "input": "Your email"
+    },
+    "footer": {
+        "menu": {
+            "title": "Company",
+            "about": "About Us",
+            "contact": "Contact Us",
+            "careers": "Careers"
+        }
+    }
+}

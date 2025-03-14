@@ -1,4 +1,4 @@
-import { createClient, type ContentfulClientApi } from 'contentful';
+import { createClient } from 'contentful';
 
 export default defineNuxtPlugin(nuxtApp => {
     const runtimeConfig = useRuntimeConfig()

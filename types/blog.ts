@@ -1,21 +1,20 @@
-import type { Asset, AssetLink, ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, ResolvedAssetLink, ResolvedLink, UnresolvedLink } from "contentful";
+import type { EntryFieldTypes, EntrySkeletonType } from "contentful";
 import type { Category } from "./category";
-import type { Image } from "./shared";
 
 export type Author = EntrySkeletonType<{
-    name: string;
-    profileImg: Image;
+    name: EntryFieldTypes.Text;
+    profileImg: EntryFieldTypes.AssetLink;
 }, 'author'>
 
 export type Blog = EntrySkeletonType<
 {
-    title: string;
-    slug: string;
-    description: string;
-    createdAt: string;
-    image: Image;
-    categories: Category[];
-    author: Author;
+    title: EntryFieldTypes.Text;
+    slug: EntryFieldTypes.Text;
+    description: EntryFieldTypes.Text;
+    createdAt: EntryFieldTypes.Text;
+    image: EntryFieldTypes.AssetLink;
+    categories: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<Category>>;
+    author: EntryFieldTypes.EntryLink<Author>;
 },
 'blogPost'
 >

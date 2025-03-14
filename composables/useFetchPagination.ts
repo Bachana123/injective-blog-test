@@ -1,4 +1,4 @@
-import type { ContentfulClientApi, Entry, EntryCollection, EntrySkeletonType, EntrySys, FieldsType, OrderFilterPaths } from "contentful";
+import type { ContentfulClientApi, Entry, EntrySkeletonType, EntrySys, OrderFilterPaths } from "contentful";
 
 export const useFetchPagination = <T extends EntrySkeletonType & { contentTypeId: string }>({
     content_type,
@@ -10,31 +10,34 @@ export const useFetchPagination = <T extends EntrySkeletonType & { contentTypeId
     limit: number,
 }) => {
     const client = useNuxtApp().$client as ContentfulClientApi<undefined>;
-    const entries = shallowRef<T[]>([]);
+    const entries = shallowRef<Entry<T, "WITHOUT_UNRESOLVABLE_LINKS">[]>([]);
     const skip = ref(0);
     const isLoading = ref(false);
     const noMoreToLoad = ref(false);
     const filters = ref<Record<string, string>>({});
+    const { locale, locales } = useI18n();
     
-      const { data, refresh } = useAsyncData(async (payload) => {
+      const { data, refresh } = useAsyncData(async () => {
         if (isLoading.value || noMoreToLoad.value) return
         isLoading.value = true;
-        const response = await client.getEntries<T>({
+        const response = await client.withoutUnresolvableLinks.getEntries<T>({
           content_type,
           order: order,
           limit,
           skip: skip.value,
+          locale: locales.value.find(item => item.code === locale.value)?.iso,
           ...filters.value
         });
       
-        entries.value = structuredClone([...entries.value, ...response.items] as T[]);
+        entries.value = structuredClone([...entries.value, ...response.items]);
         skip.value += limit;
         isLoading.value = false;
         if (response.items.length < limit) {
           noMoreToLoad.value = true;
         }
       }, {
-        immediate: true
+        immediate: true,
+        watch: [locale]
       });
 
     return {

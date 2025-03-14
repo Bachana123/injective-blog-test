@@ -13,19 +13,20 @@
         <CommonMainBlock v-if="blogData" :blogItem="blogData" />
         <CommonBlogsWithFilter />
     </main>
-  </template>
+</template>
   
 <script setup lang="ts">
-import type { ContentfulClientApi, EntrySkeletonType } from 'contentful';
+import type { ContentfulClientApi } from 'contentful';
 import type { Blog } from '~/types/blog';
 
 const { $client } = useNuxtApp()
+const { locale } = useI18n()
 
 const client = $client as ContentfulClientApi<undefined>;
 
 const todayDate = computed(() => {
     const date = new Date(); 
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(locale.value, {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -33,12 +34,15 @@ const todayDate = computed(() => {
 });
 
 
-const {data: blogData} = await useAsyncData(() => client.getEntries<Blog>({
+const {data: blogData} = await useAsyncData(() => client.withoutUnresolvableLinks.getEntries<Blog>({
     content_type: 'blogPost',
     order: ['sys.createdAt'],
-    limit: 4
+    limit: 4,
+    locale: locale.value,
 })
 .then((posts) => {
-    return {...posts.items as unknown as Blog[]}
-}))
+    return posts.items
+}), {
+    watch: [locale]
+})
 </script>

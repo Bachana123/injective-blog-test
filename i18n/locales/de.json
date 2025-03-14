@@ -1,0 +1,26 @@
+{
+    "common": {
+        "button": {
+            "loadMore": "Mehr laden"
+        }
+    },
+    "shareCard": {
+        "smallTitle": "Los geht's",
+        "title1": "Die Zukunft der Finanzen",
+        "title2": "beginnt hier.",
+        "description1": "Begleite uns auf der Reise zur Entwicklung von echten",
+        "description2": "finanziellen Freiheit für alle.",
+    },
+    "subscribe": {
+        "title": "Melden Sie sich für unseren Newsletter an",
+        "input": "Ihre E-Mail"
+    },
+    "footer": {
+        "menu": {
+            "title": "Unternehmen",
+            "about": "Über uns",
+            "contact": "Kontakt",
+            "careers": "Karriere"
+        }
+    }
+}

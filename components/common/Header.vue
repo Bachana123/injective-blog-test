@@ -41,10 +41,11 @@ onUnmounted(() => {
     scrollY > 500 &&  'bg-white text-black shadow-md',
     scrollY <= 500 && 'bg-transparent',
     variant === 'white-bg' && 'bg-white text-black')">
-      <div class="container mx-auto py-4">
+      <div class="container mx-auto py-4 flex justify-between items-center">
           <NuxtLink to="/">
               <Logo />
           </NuxtLink>
+          <CommonLangSwitcher />
       </div>
     </header>
 </template>
