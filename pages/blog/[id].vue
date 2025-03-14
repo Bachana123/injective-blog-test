@@ -85,13 +85,32 @@ const author = computed(() => {
 </template>
 
 <style scoped lang="css">
+:deep(.markdown-text) {
+    @apply text-base text-[#676c75];
+}
 :deep(.markdown-text img) {
     @apply my-6;
 }
-:deep(.markdown-text h2) {
-    @apply text-2xl mt-10 text-black;
+:deep(.markdown-text ul) {
+    @apply mt-[44px] pl-[44px];
 }
-:deep(.markdown-text p) {
+:deep(.markdown-text hr) {
     @apply mt-6;
+}
+:deep(.markdown-text h2) {
+    @apply text-[32px] leading-10 mt-16 text-[#0b182b];
+}
+:deep(.markdown-text p),
+:deep(.markdown-text li) {
+    @apply mt-6;
+}
+:deep(.markdown-text li) {
+    @apply list-disc;
+}
+:deep(.markdown-text h3) {
+    @apply mt-8 text-[#676c75] text-xl;
+}
+:deep(.markdown-text a[rel="nofollow"]) {
+    @apply text-[#4d3dff] underline;
 }
 </style>
